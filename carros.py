@@ -1,30 +1,20 @@
 from pymongo import MongoClient
-
 from pymongo import MongoClient
-
-# String de conexão do MongoDB
-# Substitua <hostname>, <port> e <database> pelas informações corretas
 connection_string = "mongodb://<hostname>:<port>/<database>"
-
-# Cria uma instância do MongoClient usando a string de conexão
 client = MongoClient("mongodb://localhost:27017/<database>")
-
-
-# Agora você pode acessar o banco de dados e as coleções
+# Acessar o banco
 db = client["car_system"]
 marcas_collection = db["marcas"]
 modelos_collection = db["modelos"]
 carros_collection = db["carros"]
-
-
-# MongoDB connection
+# Conexão MongoDB
 client = MongoClient("mongodb://localhost:27017")
 db = client["car_system"]
 marcas_collection = db["marcas"]
 modelos_collection = db["modelos"]
 carros_collection = db["carros"]
 
-# CRUD operations for Marca
+# CRUD em marca
 def create_marca(marca):
     result = marcas_collection.insert_one(marca)
     return result.inserted_id
@@ -41,7 +31,7 @@ def delete_marca(marca_id):
     result = marcas_collection.delete_one({"_id": marca_id})
     return result.deleted_count > 0
 
-# CRUD operations for Modelo
+# CRUD em modelo
 def create_modelo(modelo):
     result = modelos_collection.insert_one(modelo)
     return result.inserted_id
@@ -58,7 +48,7 @@ def delete_modelo(modelo_id):
     result = modelos_collection.delete_one({"_id": modelo_id})
     return result.deleted_count > 0
 
-# CRUD operations for Carro
+# CRUD em carro
 def create_carro(carro):
     result = carros_collection.insert_one(carro)
     return result.inserted_id
@@ -75,7 +65,7 @@ def delete_carro(carro_id):
     result = carros_collection.delete_one({"_id": carro_id})
     return result.deleted_count > 0
 
-# Example usage
+# Exemplo de uso
 marca_data = {
     "nome": "Ford"
 }
