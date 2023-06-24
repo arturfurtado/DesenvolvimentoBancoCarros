@@ -1,12 +1,5 @@
 from pymongo import MongoClient
-from pymongo import MongoClient
-connection_string = "mongodb://<hostname>:<port>/<database>"
-client = MongoClient("mongodb://localhost:27017/<database>")
-# Acessar o banco
-db = client["car_system"]
-marcas_collection = db["marcas"]
-modelos_collection = db["modelos"]
-carros_collection = db["carros"]
+
 # Conexão MongoDB
 client = MongoClient("mongodb://localhost:27017")
 db = client["car_system"]
@@ -31,6 +24,10 @@ def delete_marca(marca_id):
     result = marcas_collection.delete_one({"_id": marca_id})
     return result.deleted_count > 0
 
+def get_all_marcas():
+    marcas = marcas_collection.find()
+    return list(marcas)
+
 # CRUD em modelo
 def create_modelo(modelo):
     result = modelos_collection.insert_one(modelo)
@@ -48,6 +45,10 @@ def delete_modelo(modelo_id):
     result = modelos_collection.delete_one({"_id": modelo_id})
     return result.deleted_count > 0
 
+def get_all_modelos():
+    modelos = modelos_collection.find()
+    return list(modelos)
+
 # CRUD em carro
 def create_carro(carro):
     result = carros_collection.insert_one(carro)
@@ -64,6 +65,10 @@ def update_carro(carro_id, new_carro):
 def delete_carro(carro_id):
     result = carros_collection.delete_one({"_id": carro_id})
     return result.deleted_count > 0
+
+def get_all_carros():
+    carros = carros_collection.find()
+    return list(carros)
 
 # Exemplo de uso
 marca_data = {
@@ -83,3 +88,21 @@ print(f"Update Marca successful: {update_result}")
 
 delete_result = delete_marca(marca_id)
 print(f"Delete Marca successful: {delete_result}")
+
+# Obter todas as marcas
+marcas = get_all_marcas()
+print("All Marcas:")
+for marca in marcas:
+    print(marca)
+
+# Obter todos os modelos
+modelos = get_all_modelos()
+print("All Modelos:")
+for modelo in modelos:
+    print(modelo)
+
+# Obter todos os carros
+carros = get_all_carros()
+print("All Carros:")
+for carro in carros:
+    print(carro)
